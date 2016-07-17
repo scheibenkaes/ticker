@@ -33,7 +33,7 @@
             :now (DateTime.)
             :birthday (DateTime.)} from-local-storage)))
 
-(defn dates-as-nums [settings]
+(defn prepare-date-to-be-saved [settings]
   (-> settings
       (dissoc :now)
       (update :birthday #(.valueOf %))))
@@ -41,7 +41,7 @@
 (defn home-page []
   (let [settings (atom (get-inital-state))
         store-settings! (fn []
-                          (->> @settings dates-as-nums (attic/set-item :ticker/settings)))]
+                          (->> @settings prepare-date-to-be-saved (attic/set-item :ticker/settings)))]
     (fn []
       (js/setTimeout #(swap! settings assoc :now (DateTime.)) 1000)
 
@@ -52,7 +52,7 @@
                               (store-settings!))]
           [:form
            
-           [:label {:for "gender"} "Are you: "]
+           [:label {:for "gender"} "Calculate for: "]
            
            [:input {:type "radio" :name "gender" :value "male" :defaultChecked (= :male
                                                                                   (:gender @settings))
@@ -72,9 +72,9 @@
         [:h3 "Timer"]
         [:div
          (str "As a " (name (:gender @settings)) " born on " (-> (:birthday @settings) format-date)
-              " your time runs out in:"  )
+              " your time probably runs out in:"  )
          [:br]
-         [:span.time-left (format-time-left @settings)]]]])))
+         [:p.time-left (format-time-left @settings)]]]])))
 
 (defn current-page []
   [:div [(session/get :current-page)]])
