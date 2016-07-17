@@ -37,7 +37,7 @@
                                (swap! settings assoc :gender (-> e .-target .-value keyword)))]
           [:form
            
-           [:label {:for "gender"} "Select a gender: "]
+           [:label {:for "gender"} "Are you: "]
            
            [:input {:type "radio" :name "gender" :value "male" :defaultChecked (= :male
                                                                                   (:gender @settings))
@@ -46,7 +46,7 @@
                                                                                     (:gender @settings))
                     :on-change change-gender}] "Female"
            [:br]
-           [:label {:for "birthday"} "Enter your birthday: "]
+           [:label {:for "birthday"} "Enter your date of birth: "]
            [:input {:type "date" :name "birthday" :value (-> (:birthday @settings)
                                                              (format-date :format "yyyy-MM-dd"))
                     :on-change (fn [e]
