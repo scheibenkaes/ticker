@@ -74,7 +74,11 @@
          (str "As a " (name (:gender @settings)) " born on " (-> (:birthday @settings) format-date)
               " your time probably runs out in:"  )
          [:br]
-         [:p.time-left (format-time-left @settings)]]]])))
+         [:p.time-left (format-time-left @settings)]]
+        [:div.quote
+         [:blockquote
+          [:p "Seize the time... Live now. Make now always the most precious time. Now will never come again."]
+          [:footer "Jean-Luc Picard"]]]]])))
 
 (defn current-page []
   [:div [(session/get :current-page)]])
