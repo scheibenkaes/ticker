@@ -28,7 +28,6 @@
 (defn get-inital-state []
   (let [from-local-storage (attic/get-item :ticker/settings)
         from-local-storage (merge from-local-storage {:birthday (Date. (js/Date. (:birthday from-local-storage)))})]
-    (println from-local-storage)
     (merge {:gender :male
             :now (DateTime.)
             :birthday (DateTime.)} from-local-storage)))
